@@ -1,0 +1,27 @@
+{
+    "host": "0123456789",
+    "currentgamestate": 1000,
+    "lasttext": "Game save successfully loaded. To see current scenario text use RPG  scenario",
+    "holdstate": 1000,
+    "players": [
+        [
+            [
+                [
+                    {
+                        "User": "0123456789",
+                        "Name": "Bob",
+                        "Class": "mage",
+                        "Job": "slappy"
+                    }
+                ]
+            ]
+        ]
+    ],
+    "characterwithfocus": {
+        "User": "0123456789",
+        "Name": "Bob",
+        "Class": "mage",
+        "Job": "slappy"
+    },
+    "characterfocushold": {}
+}

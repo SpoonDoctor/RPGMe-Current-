@@ -1,0 +1,33 @@
+{
+    "Narrator": {
+        "NewGameText": "Greetings young traveler. Would you like to begin?",
+        "BeginText": "I see. So, you have you sought me out in hopes of finding some epic journey? Some perilous quest full of sword and sorcery, of treasure laiden dungeons, or any other such whimsicial nonsense? Well, you poor ignorant fool... you are in the right place.",
+        "CreatedCharacter": "Very well. If you insist on continuing, might I ask your name? We'll need it for your obituary.",
+        "NamedCharacter": "%CN is it? Perhaps I have heard of you before. Wait, what Class of combat do you hail from?",
+        "PickedClass": "A %CC? On second thought, I guess that must've been some other idiot then. That should just about do it. Now, if you could just tell me what Job it is you do as a %CC, maybe we can wrap this up.",
+        "PickedJob": "%CJ... Never heard of it. But with that.... think... go... do your......... (From now on, use '%CMDScontinue' to advance non-combat story scenarios)."
+    },
+    "SystemCommands":{
+        "CommandString": "RPG ",
+        "ReturnString": "Returning you to where you left off.",
+        "BeginInvalid": "There is either already a game in progress, or no save file exists. If you want to start a fresh save, type !newgame to create a new save first.",
+        "NewGameFinalized" : "(New save created. To add additional players to the game, the new player should use %CMDSplayeradd (not implemented))",
+        "GameLoadSuccessful": "Game save successfully loaded. To see current scenario text use %CMDSscenario",
+        "GameLoadFailed": "Failed to load game save. Does one exist for requesting user?",
+        "SaveFailed": "Failed to save game. Saving is only possible outside of combat and can not be used while creating a new game or character.",
+        "SaveFailedBattle": "You cannot save during combat!",
+        "SaveFailedWrite": "Saving failed while writing the save file. Try again in a moment.",
+        "SaveSuccessful": "Successfully saved!"
+    },
+    "Help":{
+        "Help": "Important commands (use command string followed by these keywords/phrases): newgame, begin, create, help <help topic> (example: 'help Classes'), archive <archive topic> (example: 'archive mage'), etc. \nKeep in mind, capitalized text can usually be looked up in the archive to find more specific information regarding it.",
+        "classes": "Current base classes: Mage, Warrior, Ranger. Implement class upgrades in the future?",
+        "jobs": "Just because you're a Mage doesn't mean you're not unique. Do you perhaps consider yourself a 'magician', or a 'pyromancer', or even a 'wand wiggler'? This gives you a bit more character customization. Might implement an ENV variable to disable jobs as an option.",
+        "modifiers": "Things to give your spells a little more 'oomf' and just a tad more 'hnnng'. These are effects that go beyond simple spell damage. They can slow enemy action timers, or cause damage over time, or whatever else I can think to implement. (Currently not implemented)"
+    },
+    "Archive":{
+        "mage": "Masters of the mystical arts, mages control both natural and unnatural forces by uttering ancient incantations to manipulate the world before them.\n",
+        "warrior": "Be they noble knight or ruthless sword for hire, warriors utilize both the strength of their bodies and the sharpness of their blades to rend the flesh of all who might oppose them.",
+        "ranger": "With cunning matching that of the most learned of mages and physical prowess rivaling the most experienced knights, bows and daggers are far from the only tricks up the sleeves of the typical ranger."
+    }
+}

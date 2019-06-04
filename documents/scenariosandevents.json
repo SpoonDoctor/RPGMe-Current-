@@ -1,0 +1,35 @@
+{
+    "scenarios":{
+        "000000":{
+            "type": "storyNE",
+            "text": "This is story text.",
+            "path": 100000
+        },
+        "100000":{
+            "type": "choice",
+            "text": "Do you choose to Skin the boars? Perhaps you Leave them as is?",
+            "choicepaths":{
+                "Skin": 100001,
+                "Leave": 100002
+            }
+        },
+        "100001":{
+            "type": "story",
+            "text": "You skinned em",
+            "path": 100003
+        },
+        "100002":{
+            "type": "story",
+            "text": "You didn't skin em.",
+            "path": 100000
+        },
+        "100003":{
+            "type": "encounter",
+            "text": "You run into a pack of wild and very angry boars!",
+            "storyencounter_id": 100003,
+            "path": 100004
+        }
+        
+    },
+    "events":{}
+}

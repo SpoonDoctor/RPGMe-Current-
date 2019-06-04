@@ -1,0 +1,21 @@
+{
+    "monsters": {
+        "boar": {
+            "variations": {
+                "1": {
+                    "hp": 10,
+                    "strength": 5,
+                    "skills": ["Rend", "Gorge"]
+                }
+            },
+            "Description": "Angry bacon."
+
+        }
+    },
+    "monster-skills": {
+        "Rend": {
+            "damageFormula":"",
+            "modifiers":""
+        }
+    }
+}

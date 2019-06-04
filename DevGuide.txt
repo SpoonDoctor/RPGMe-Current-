@@ -1,0 +1,80 @@
+Notes before I do something more official:
+String resources with first letters capitalized are required for the game to run. Feel free to edit their contents, just don't remove them or change their name. 
+Any other string resources are optional and can be removed. Please keep to the above naming convention when adding your own string resources.
+String resources listed under "system", except for the "command string" are not intended to be changed because they are meant to provide consistent help text to a player
+String resources are used for both checking some text entries as well as choosing output text.
+String resources listed under "Help" can and should be modified based off your unique game world.
+All help text command should be lower case and ultimately optional. The exception of this is Classes, Jobs, and the default help command 
+    which should contain relevant info to your game such as a list of commands. While help commands are optional, I'd recommend having some entry for classes and jobs at the least.
+Archive text keys should all be lower case and ultimately optional
+
+When defining a class, put cost, damage, and cooldown in an array (just like the example). Each number in the array represents how that property changes at each level of that spell.
+    Size of this array should be equal to the "max level" property of that spell.
+
+Archive entries for spells do not need to be set in the archive itself. During application startup, descriptions are pulled from the class definitions file and added to the archive automatically
+
+IMPORTANT: When setting the command string, make sure you include a space after the command string if you desire a space between it and the beginning of your intended
+game commands. Otherwise the engine assumes no space.
+
+
+Scenario setup: key should be the scenarioID# used to find the scenario in memory.
+    There are four scenario types (more to come later).
+    Story, storyNE, choice, encounter.
+    Story is used to exposite story on the user. Random encounters can be triggered after story scenarios provided random encounter rate is not 0.
+    StoryNE stands for Story No Encounters. Random encounters can not trigger after these scenarios making them a good means to provide players a guaranteed opportunity to save.
+    Choice prevents branching paths to a user (make sure these paths all have ends or combine at some point and aren't left dangling)
+    Encounter is used for non-random story based encounters. For now it will share a type with boss encounters, this may change later.
+    First scenario should be story.
+
+Events.... do something?
+
+When using a monster in a scenario definition, the number corresponds to the version of the monster to use. If you just put a question mark in that version marker, a random version 
+    will be used
+
+Monster abilities are done a bit different to make configuring them more cookie-cutter. Instead of defining their abilities out-right, you define their 
+    abilities in the abilities section of the monsterpedia. This way, the same spell definition of an ability is valid for any number of monsters. 
+
+NOTE: Players can not save during encounters. This is intentional. For this reason, you might want to add an extra scenario before a difficult battle to warn the user and 
+    give them time to save or do whatever else to prepare.
+
+Currently, each instance of the application can only run one active game. Eventual goal is to allow one application to run many games but still limit to one per group chat
+
+
+
+
+Helpful Terms -
+Narrator: The voice of the game as determined by whoever is designing the scenario. All text defined by string resources.
+    Different from the "system voice" which is just designed to help the player when they goof
+System voice: The voice of the game engine itself, so to speak. Provides helpful commands and tells a player when they're trying to do something they shouldn't
+Archive: Used as a repository of information for the user and allows the scenario designer to expand the lore of their world by mapping lore and item descriptions to keywords
+Class: The logic controlled aspect of a specific character with balancing and abilities defined by the scenario designer. For example "Mage"
+Job: The title a player gives to how their specific character interprets their role in their class. For example "Frost Mage" as opposed to just "Mage". Freely changed by players
+Scenario designer: You, I assume. The one creating the lore and the game balancing.
+Command string: First bit of string used to denote that this input is intended for the game. Configurable string resource so it shouldn't conflict with other bots.
+String Resource: Strings used by the game to determine what the narrator or system should say during certain events, what should be considered a game command, 
+    possibly other stuff in the future
+Nothing happened: Generic term for "The command you tried to use did nothing. Maybe it doesn't exist, or maybe you gave it an invalid argument".
+Help: Non lore related help information such as a list of available classes, what ability modifiers exist, etc.
+Always ready commands: Commands that are available at any time, such as newgame, help, and archive.
+String Value Placeholders: A means to insert certain values into string resources to make the system voice and narrator a little more dynamic and personal feeling. Current
+    placeholders defined in gameengine.js replaceStringValuePlaceholders() function comment, should move to dev/user guide
+Levelup-type: A property of class definition defined as either linear or dynamic. Linear level-up types allow you to simply define what stats to increment and how much on level up.
+    This amount will be the same for every level up. Dynamic level-up types allow you to specify the stat changes for each level. More powerful, but not as simple
+
+
+
+
+
+
+General TODOs: Streamline the first few steps. If someone new games, don't make them also type begin and character create. Just get right into it. Maybe check game state instead of command for these few.
+Make archive checking as easy as possible. Maybe give it it's own one character command (start the command with just a '?' maybe?). Encourage checking archive as much as possible through the ease of use.
+
+
+Implement combat and modifiers on spells
+
+Implement a means to see the current stats of your abilities as well as the possible future stats (or at least next level)
+
+Pull monster/monster ability descriptions from monsterpedia
+
+
+NEXT UP: Encounters and loading

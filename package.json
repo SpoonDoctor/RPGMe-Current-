@@ -1,0 +1,15 @@
+{
+  "name": "rpgbot-workspace",
+  "version": "1.0.0",
+  "description": "Bot for running text based RPGs via GroupMe (others in the future?)",
+  "main": "app.js",
+  "scripts": {
+    "offline": "node offlineapp.js",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "readline-sync": "^1.4.9"
+  }
+}
