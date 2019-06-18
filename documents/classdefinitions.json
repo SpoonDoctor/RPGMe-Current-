@@ -1,56 +1,55 @@
 {
     "mage": {
-        "levelup-type":"linear",
+        "levelup-type": "linear",
         "hp": 10,
         "mana": 100,
         "defense": 1,
         "strength": 1,
         "wisdom": 5,
+        "intellect": 5,
+        "speed": 2,
         "skills": {
             "fireball": {
-                "type": "flame",
                 "min-level": 1,
                 "cost": 10,
+                "cast-time": 1,
                 "cooldown": 3,
-                "damage": 10,
+                "damage-modifiers": {
+                    "base-damage": 2,
+                    "defense": 0,
+                    "strength": 0,
+                    "wisdom": 0,
+                    "intellect": 1.25
+                },
                 "Description": "What do you mean? It's a ball of fire.",
-                "modifiers": "burn"
+                "ability-modifiers": "burn"
             },
             "ice blast": {
-                "type": "flame",
                 "min-level": 1,
                 "cost": 8,
+                "cast-time": 0,
                 "cooldown": 3,
-                "damage": 8,
+                "damage-modifiers": {
+                    "base-damage": 1,
+                    "defense": 0,
+                    "strength": 0,
+                    "wisdom": 0,
+                    "intellect": 1.5
+                },
                 "Description": "Reminds me of that winter I spent in Cleveland...",
-                "modifiers":"cold"
+                "ability-modifiers": "cold"
             }
         }
     },
     "warrior": {
-        "levelup-type":"dynamic",
+        "levelup-type": "dynamic",
         "hp": 10,
         "mana": 100,
         "defense": 1,
         "strength": 1,
         "wisdom": 5,
-        "skills": {
-            "fireball": {
-                "max-level": 5,
-                "cost": [10,9,7,5,4],
-                "cooldown": [3,3,2,2,1],
-                "damage": [10, 11, 12, 14, 17],
-                "Description": "What do you mean? It's a ball of fire.",
-                "modifiers": "burn"
-            },
-            "ice blast": {
-                "max-level": 5,
-                "cost": [8,7,6,6,5],
-                "cooldown": [3,2,2,1,1],
-                "damage": [8, 9, 10, 12, 19],
-                "Description": "Reminds me of that winter I spent in Cleveland...",
-                "modifiers":"cold"
-            }
-        }
+        "intellect": 5,
+        "speed": 2,
+        "skills": {}
     }
 }

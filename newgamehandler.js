@@ -27,7 +27,7 @@ function runNewGame(resultText, command, truncatedCommandText){
             } else if (GameEngine.CURRENTGAMESTATE === GameEngine.GAMESTATES.CHARACTERNAME) {
                 var characterName = truncatedCommandText.substring(command.length + 1);
                 GameEngine.CHARACTERINCREATION.Name = characterName;
-                
+                GameEngine.CHARACTERWITHFOCUS = GameEngine.CHARACTERINCREATION;
                 //Fix this so it isn't so wonky. Narrator strings should handle inputs of variables in a better way. 
                 //Maybe make a helper function for parsing, make it more global too and not only useable in certain commands
                 //For now I'll leave a place holder tag for where the character name would go
@@ -36,11 +36,13 @@ function runNewGame(resultText, command, truncatedCommandText){
             } else if(GameEngine.CURRENTGAMESTATE === GameEngine.GAMESTATES.CHARACTERCLASS){
                 var characterClass = truncatedCommandText.substring(command.length + 1); //TODO: Make sure this class is a valid class
                 GameEngine.CHARACTERINCREATION.Class = characterClass;
+                GameEngine.CHARACTERWITHFOCUS = GameEngine.CHARACTERINCREATION;
                 resultText = GameEngine.STRINGRESOURCES.Narrator.PickedClass;
                 GameEngine.CURRENTGAMESTATE = GameEngine.GAMESTATES.CHARACTERJOB;
             } else if(GameEngine.CURRENTGAMESTATE === GameEngine.GAMESTATES.CHARACTERJOB){
                 var characterJob = truncatedCommandText.substring(command.length + 1);
                 GameEngine.CHARACTERINCREATION.Job = characterJob;
+                GameEngine.CHARACTERWITHFOCUS = GameEngine.CHARACTERINCREATION;
                 resultText = GameEngine.STRINGRESOURCES.Narrator.PickedJob + "\n\n" 
                 + GameEngine.STRINGRESOURCES.SystemCommands.NewGameFinalized;
                 //Add character in progress to list of players, create new save game, move to main game, go to first scenario

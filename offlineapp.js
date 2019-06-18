@@ -18,7 +18,7 @@ function offlineEntryExitPoint(){
             "text": entryText,
             "user_id": "0123456789"
         }
-        let resultText = MainHandler.selectGameLogic(mockGroupMePayload);
+        let resultText = MainHandler.selectAndRunGameLogic(mockGroupMePayload);
         //TODO: Implement helper to break down lengthy text into multiple smaller messages to avoid character limits (may not be necessary)
         console.log(resultText);
     }

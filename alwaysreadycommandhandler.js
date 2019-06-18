@@ -13,9 +13,9 @@ function runAlwaysReadyCommands(resultText, command, truncatedCommandText, user_
                 GameEngine.NEXTSCENARIOID = undefined;
                 GameEngine.CURRENTGAMESTATE = GameStates.NEWGAME;
             } else {
-                //Because I'm lazy, commands like this that contain resource strings I'm going to hard code for now.
+                //TODO: make a string resource
                 resultText = "Game is active. Would you like to start a new one? Type: '" + GameEngine.STRINGRESOURCES.SystemCommands.CommandString +
-                    " new game' once more to confirm, or '" + GameEngine.STRINGRESOURCES.SystemCommands.CommandString +
+                    " newgame' once more to confirm, or '" + GameEngine.STRINGRESOURCES.SystemCommands.CommandString +
                     " return' to undo this request. Note: If an owner of an existing game starts a game, the old one will be deleted.";
                 GameEngine.HOLDSTATE = GameEngine.CURRENTGAMESTATE;
                 GameEngine.CURRENTGAMESTATE = GameStates.CONFIRMNEWGAME;

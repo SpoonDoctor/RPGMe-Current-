@@ -1,4 +1,5 @@
 GameEngine = require("./gameengine.js");
+CombatHandler = require("./combathandler.js");
 
 function runMainGame(resultText, command, truncatedCommandText) {
 
@@ -28,18 +29,20 @@ function runMainGame(resultText, command, truncatedCommandText) {
                             "path": scenario.path
                         };
                         break;
-                case "choice":
+                case "choice": //Should we consider random encounters? Have a choiceNE?
                     resultText = scenario.text;
                     GameEngine.NEXTSCENARIOID = scenario.choicepaths;
                     break;
                 case "encounter":
                     resultText = scenario.text;
-                    GameEngine.NEXTSCENARIOID = scenario.choicepaths;
+                    GameEngine.NEXTSCENARIOID = scenario.path;
+                    //GameEngine.setEncounterType("story-encounter");
                     GameEngine.CURRENTGAMESTATE = GameEngine.GAMESTATES.BATTLE;
+                    resultText = CombatHandler.initializeStoryEncounter(resultText);
                     break;
             }
             break;
-        case GameEngine.COMMANDS.RESTATESCENARIO:
+        case GameEngine.COMMANDS.RESTATESCENARIO: //Should this be in always ready?
             var scenario = GameEngine.SCENARIOSANDEVENTS.scenarios[GameEngine.CURRENTSCENARIOID]; //Use a getter for this
             resultText = scenario.text;
             //Don't need to set up possible routes because those should already be set if we're able to repeat the text.

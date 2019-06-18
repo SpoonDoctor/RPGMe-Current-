@@ -1,3 +1,10 @@
+This dev guide is an unorganized mess and right now is just a place for me to keep track of things.
+
+Something nicer coming eventually maybe.
+
+
+
+
 Notes before I do something more official:
 String resources with first letters capitalized are required for the game to run. Feel free to edit their contents, just don't remove them or change their name. 
 Any other string resources are optional and can be removed. Please keep to the above naming convention when adding your own string resources.
@@ -76,5 +83,11 @@ Implement a means to see the current stats of your abilities as well as the poss
 
 Pull monster/monster ability descriptions from monsterpedia
 
+Eventually but not for a bit:
+Shops
+Inventory
+Loot
 
-NEXT UP: Encounters and loading
+
+
+NEXT UP: Encounters -- Actually start using class templates so that we have some real stats to test in combat! Also, test a combat step because we implemented tons without testing it once.

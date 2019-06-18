@@ -1,27 +1,25 @@
 {
     "host": "0123456789",
     "currentgamestate": 1000,
-    "lasttext": "Game save successfully loaded. To see current scenario text use RPG  scenario",
+    "lasttext": "A mage? On second thought, I guess that must've been some other idiot then. That should just about do it. Now, if you could just tell me what Job it is you do as a mage, maybe we can wrap this up.",
     "holdstate": 1000,
     "players": [
-        [
-            [
-                [
-                    {
-                        "User": "0123456789",
-                        "Name": "Bob",
-                        "Class": "mage",
-                        "Job": "slappy"
-                    }
-                ]
-            ]
-        ]
+        {
+            "User": "0123456789",
+            "Name": "bob",
+            "Class": "mage",
+            "Job": "succ"
+        }
     ],
+    "nextscenarioid": {
+        "path": "000000"
+    },
+    "currentscenarioid": {},
     "characterwithfocus": {
         "User": "0123456789",
-        "Name": "Bob",
+        "Name": "bob",
         "Class": "mage",
-        "Job": "slappy"
+        "Job": "succ"
     },
     "characterfocushold": {}
 }

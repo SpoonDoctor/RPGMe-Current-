@@ -5,7 +5,7 @@
         "CreatedCharacter": "Very well. If you insist on continuing, might I ask your name? We'll need it for your obituary.",
         "NamedCharacter": "%CN is it? Perhaps I have heard of you before. Wait, what Class of combat do you hail from?",
         "PickedClass": "A %CC? On second thought, I guess that must've been some other idiot then. That should just about do it. Now, if you could just tell me what Job it is you do as a %CC, maybe we can wrap this up.",
-        "PickedJob": "%CJ... Never heard of it. But with that.... think... go... do your......... (From now on, use '%CMDScontinue' to advance non-combat story scenarios)."
+        "PickedJob": "%CJ... Never heard of it. But with that.... think... go... do your......... (From now on, use '%CMDSnext' to advance non-combat story scenarios)."
     },
     "SystemCommands":{
         "CommandString": "RPG ",
@@ -17,7 +17,10 @@
         "SaveFailed": "Failed to save game. Saving is only possible outside of combat and can not be used while creating a new game or character.",
         "SaveFailedBattle": "You cannot save during combat!",
         "SaveFailedWrite": "Saving failed while writing the save file. Try again in a moment.",
-        "SaveSuccessful": "Successfully saved!"
+        "SaveSuccessful": "Successfully saved!",
+        "TurnOrderEstablished": "Turn order established:",
+        "EncounterInitialized": "Type '%CMDSbattle begin' to begin combat",
+        "PlayerTurn": "Make your move, %CN!"
     },
     "Help":{
         "Help": "Important commands (use command string followed by these keywords/phrases): newgame, begin, create, help <help topic> (example: 'help Classes'), archive <archive topic> (example: 'archive mage'), etc. \nKeep in mind, capitalized text can usually be looked up in the archive to find more specific information regarding it.",

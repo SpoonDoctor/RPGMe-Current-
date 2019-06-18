@@ -37,11 +37,14 @@ class GameEngine {
             SAVE: "save"
         }
 
-        
+
         //Member variables
         //Initialize this way to make the members of the engine object a little more obvious. Should get set during startup. 
-        //If undefined, best bet is to look below at initialsetup
-        this.STRINGRESOURCES = undefined;
+        //If undefined and without a descriptive comment, look below in initialSetup()
+        this.STRINGRESOURCES = {};
+        this.CLASSDEFINITIONS = {};
+        this.SCENARIOSANDEVENTS = {};
+        this.MONSTERPEDIA = {};
         //Used when a player wants text to be repeated. Currently limited (because I'm lazy) to only store last displayed text. Does not store old text during cases when
         //a player returns to a previous state.
         this.LASTTEXT = undefined;
@@ -54,9 +57,9 @@ class GameEngine {
         this.HOLDSTATE = undefined;
         //Holds list of possible next scenarios
         //this.NEXTSCENARIO = undefined; UNCOMMENT ALSO
-        this.NEXTSCENARIOID = {"path": "000000"};
+        this.NEXTSCENARIOID = {};
         //Holds current scenario, used when player needs a scenario repeated.
-        this.CURRENTSCENARIOID = undefined;
+        this.CURRENTSCENARIOID = {};
         //List of active players in game for when multiplayer is implemented
         this.PLAYERS = [];
         //Hold character in creation progress in memory
@@ -67,6 +70,14 @@ class GameEngine {
         this.CHARACTERFOCUSHOLD = {}; //Add to save file?
         //Host of current game to decide what save file is being accessed
         this.CURRENTHOST = undefined;
+        //Main data structure used in combat logic, holds participants in combat turn order. Might become an object later if I decide to go with a combat style that emphasizes
+        //the speed stat more.
+        this.ENCOUNTER = {
+            encounterType: "", //Hmmm inconsistent property naming
+            initialized: false, //Has turn order determination/other possible combat initialization steps completed?
+            participants: [], //Holds combat participants, enemies and players, in turn order.
+            combatTurnIndex: 0 //Holds the index of the combat participant whose turn it currently is
+        }
 
     }
 
@@ -101,7 +112,7 @@ class GameEngine {
             //Make things a little more readable....
             var classDefinition = this.CLASSDEFINITIONS[classDefIterator];
             //Loop through classes skills...
-            for(var skill in classDefinition.skills){
+            for (var skill in classDefinition.skills) {
                 //Add the descriptions of the skills to the archive (data for the skills will not be access through the archive)
                 this.STRINGRESOURCES.Archive[skill] = classDefinition.skills[skill].Description;
             };
@@ -110,6 +121,28 @@ class GameEngine {
         //Read scenario information into memory
         try {
             this.SCENARIOSANDEVENTS = JSON.parse(fs.readFileSync("./documents/scenariosandevents.json", "utf8"));
+        } catch (err) {
+            if (err.code === "ENOENT") {
+                console.log("No class defs");
+            } else {
+                throw err;
+            }
+        }
+
+        //Read monster information into memory
+        try {
+            this.MONSTERPEDIA = JSON.parse(fs.readFileSync("./documents/monsterpedia.json", "utf8"));
+        } catch (err) {
+            if (err.code === "ENOENT") {
+                console.log("No class defs");
+            } else {
+                throw err;
+            }
+        }
+
+        //Read possible encounter information into memory
+         try {
+            this.POSSIBLEENCOUNTERS = JSON.parse(fs.readFileSync("./documents/encounters.json", "utf8"));
         } catch (err) {
             if (err.code === "ENOENT") {
                 console.log("No class defs");
@@ -132,25 +165,25 @@ class GameEngine {
             "currentgamestate": this.CURRENTGAMESTATE,
             "lasttext": this.LASTTEXT,
             "holdstate": this.HOLDSTATE,
-            "players": [this.PLAYERS],
-            "nextscenario": this.NEXTSCENARIO,
-            "currentscenario": this.CURRENTSCENARIO,
+            "players": this.PLAYERS,
+            "nextscenarioid": this.NEXTSCENARIOID,
+            "currentscenarioid": this.CURRENTSCENARIOID,
             "characterwithfocus": this.CHARACTERWITHFOCUS,
             "characterfocushold": this.CHARACTERFOCUSHOLD
         }
         //If current host is undefined for some reason, catch this instead of creating an undefined save
-        if(!this.CURRENTHOST){
+        if (!this.CURRENTHOST) {
             return this.STRINGRESOURCES.SystemCommands.SaveFailedWrite;
         }
-        
+
         try {
             fs.writeFileSync("./saves/" + this.CURRENTHOST + ".json", JSON.stringify(saveFileContents, null, 4));
             return this.STRINGRESOURCES.SystemCommands.SaveSuccessful;
         } catch (err) {
             return this.STRINGRESOURCES.SystemCommands.SaveFailedWrite;
         }
-        
-        
+
+
     }
 
     //Replace certain predefined placeholders in string resources with the values they represent
@@ -158,7 +191,7 @@ class GameEngine {
     //%CJ = character job
     //%CN = character name
     //%CMDS = command string
-    replaceStringValuePlaceholders(stringResource){
+    replaceStringValuePlaceholders(stringResource) {
         stringResource = stringResource.replace(/%CC/g, this.CHARACTERWITHFOCUS.Class);
         stringResource = stringResource.replace(/%CJ/g, this.CHARACTERWITHFOCUS.Job);
         stringResource = stringResource.replace(/%CN/g, this.CHARACTERWITHFOCUS.Name);
@@ -167,8 +200,8 @@ class GameEngine {
     }
 
     //loads save file using user_id of requester
-    loadGame(user_id){
-        
+    loadGame(user_id) {
+
         try {
             //Read save file into memory.
             var loadedGame = JSON.parse(fs.readFileSync("./saves/" + user_id + ".json", "utf8"));
@@ -178,21 +211,39 @@ class GameEngine {
             this.LASTTEXT = loadedGame.lasttext;
             this.HOLDSTATE = loadedGame.holdstate;
             this.PLAYERS = loadedGame.players;
-            this.NEXTSCENARIO = loadedGame.nextscenario;
-            this.CURRENTSCENARIO = loadedGame.currentscenario;
+            this.NEXTSCENARIOID = loadedGame.nextscenarioid;
+            this.CURRENTSCENARIOID = loadedGame.currentscenarioid;
             this.CHARACTERINCREATION = {};
-            this.CHARACTERWITHFOCUS = loadedGame.characterwithfocus; 
+            this.CHARACTERWITHFOCUS = loadedGame.characterwithfocus;
             this.CHARACTERFOCUSHOLD = loadedGame.characterfocushold;
-            
+
             return this.STRINGRESOURCES.SystemCommands.GameLoadSuccessful;
         } catch (err) {
             if (err.code === "ENOENT") {
-                return this.STRINGRESOURCES.SystemCommands.GameLoadFailed; 
+                return this.STRINGRESOURCES.SystemCommands.GameLoadFailed;
             } else {
                 throw err;
             }
         }
     }
+    //Boolean functions
+    isStoryEncounter(){
+        return this.ENCOUNTER.encounterType === "story-encounter";
+    }
+
+    isCombatInitialized(){
+        return this.ENCOUNTER.initialized;
+    }
+
+    //Getters
+
+    //Setters
+    //Sets the encounter type on the encounter object. Currently a string.
+    setEncounterType(encounter_type) {
+        this.ENCOUNTER.encounterType = encounter_type;
+    }
 }
+
+
 
 module.exports = new GameEngine();

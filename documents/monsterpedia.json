@@ -5,6 +5,7 @@
                 "1": {
                     "hp": 10,
                     "strength": 5,
+                    "speed": 2,
                     "skills": ["Rend", "Gorge"]
                 }
             },
@@ -14,8 +15,8 @@
     },
     "monster-skills": {
         "Rend": {
-            "damageFormula":"",
-            "modifiers":""
+            "damage-modifiers":{},
+            "ability-modifiers":""
         }
     }
 }
